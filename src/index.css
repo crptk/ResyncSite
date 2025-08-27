@@ -6,9 +6,94 @@
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #000000 100%);
+  background: #000106;
   color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: -400px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app::after {
+  content: '';
+  position: absolute;
+  top: -5%;
+  right: -400px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.background-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.light-pink {
+  position: absolute;
+  top: 40%;
+  right: -400px;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 60%);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.light-pink2 {
+  position: absolute;
+  top: 40%;
+  right: 100px;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 60%);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.light-green {
+  position: absolute;
+  bottom: 20%;
+  left: -400px;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 60%);
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.light-yellow {
+  position: absolute;
+  top: 70%;
+  right: -400px;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 60%);
+  border-radius: 50%;
+  filter: blur(50px);
 }
 
 /* Header */
@@ -46,8 +131,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 80px 20px;
+  height: calc(100vh - 80px); /* Full viewport height minus header */
+  padding: 20px;
 }
 
 .profile-circle {
@@ -71,12 +158,15 @@
 }
 
 .hero-highlight {
-  color: #60a5fa;
+  background: linear-gradient(135deg, #00D0FF 27%, #E6FBFF 65%, #005AFF 88%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-description {
   color: #d1d5db;
-  max-width: 448px;
+  max-width: 460px;
   margin-bottom: 32px;
   line-height: 1.6;
 }
@@ -87,7 +177,7 @@
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: linear-gradient(90deg, #0051Ff 48%, #88aeffff 100%);
   color: white;
   padding: 12px 24px;
   border: none;
@@ -95,10 +185,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+  min-width: 150px;
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  box-shadow: 0 0 20px rgba(0, 81, 255, 0.6), 0 0 40px rgba(0, 81, 255, 0.3);
+  transform: translateY(-1px); /* Subtle lift effect */ 
 }
 
 .btn-secondary {
@@ -110,10 +202,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+  min-width: 150px;
 }
 
 .btn-secondary:hover {
-  background: #4b5563;
+  box-shadow: 0 0 20px rgba(0, 81, 255, 0.6), 0 0 40px rgba(0, 81, 255, 0.3);
+  transform: translateY(-1px); /* Subtle lift effect */ 
 }
 
 /* Server Stats */
@@ -155,7 +249,6 @@
 }
 
 .btn-gradient {
-  background: linear-gradient(45deg, #8b5cf6, #a855f7);
   color: white;
   padding: 12px 24px;
   border: none;
@@ -304,19 +397,73 @@
 
 .waveform-container {
   margin: 40px 0;
+  padding: 30px;
+  position: relative;
 }
 
 .waveform {
   width: 100%;
-  max-width: 400px;
-  height: 100px;
+  max-width: 520px; /* Increased to maintain visual size */
+  height: 180px;    /* Increased proportionally */
+}
+
+.wave-1, .wave-2 {
+  fill: none;
+  stroke-width: 3;
+  animation: waveSync 4.5s infinite;
+}
+
+.wave-1 {
+  stroke: #fbbf24;
+  opacity: 0.9;
+  animation: wave1Sync 5s infinite;
+  filter: drop-shadow(0 0 8px #fbbf24) drop-shadow(0 0 16px #fbbf24);
+  stroke-width: 4;
+}
+.wave-2 {
+  stroke: #f59e0b;
+  opacity: 0.7;
+  animation: wave2Sync 5s infinite;
+  animation-delay: 0.8s;
+  filter: drop-shadow(0 0 8px #f59e0b) drop-shadow(0 0 16px #f59e0b);
+  stroke-width: 4;
+}
+@keyframes wave1Sync {
+  0%, 100% {
+    d: path("M0,60 Q20,20 40,60 Q60,100 80,60 Q100,20 120,60 Q140,100 160,60 Q180,20 200,60 Q220,100 240,60 Q260,20 280,60 Q300,100 320,60 Q340,20 360,60 Q380,100 400,60");
+  }
+  40% {
+    d: path("M0,60 Q20,20 40,60 Q60,100 80,60 Q100,20 120,60 Q140,100 160,60 Q180,20 200,60 Q220,100 240,60 Q260,20 280,60 Q300,100 320,60 Q340,20 360,60 Q380,100 400,60");
+  }
+  60% {
+    d: path("M0,60 Q20,100 40,60 Q60,20 80,60 Q100,100 120,60 Q140,20 160,60 Q180,100 200,60 Q220,20 240,60 Q260,100 280,60 Q300,20 320,60 Q340,100 360,60 Q380,20 400,60");
+  }
+  85% {
+    d: path("M0,60 Q20,60 40,60 Q60,60 80,60 Q100,60 120,60 Q140,60 160,60 Q180,60 200,60 Q220,60 240,60 Q260,60 280,60 Q300,60 320,60 Q340,60 360,60 Q380,60 400,60");
+  }
+}
+
+
+@keyframes wave2Sync {
+  0%, 100% {
+    d: path("M0,60 Q20,100 40,60 Q60,20 80,60 Q100,100 120,60 Q140,20 160,60 Q180,100 200,60 Q220,20 240,60 Q260,100 280,60 Q300,20 320,60 Q340,100 360,60 Q380,20 400,60");
+  }
+  50% {
+    d: path("M0,60 Q20,100 40,60 Q60,20 80,60 Q100,100 120,60 Q140,20 160,60 Q180,100 200,60 Q220,20 240,60 Q260,100 280,60 Q300,20 320,60 Q340,100 360,60 Q380,20 400,60");
+  }
+  70% {
+    d: path("M0,60 Q20,20 40,60 Q60,100 80,60 Q100,20 120,60 Q140,100 160,60 Q180,20 200,60 Q220,100 240,60 Q260,20 280,60 Q300,100 320,60 Q340,20 360,60 Q380,100 400,60");
+  }
+  85% {
+    d: path("M0,60 Q20,60 40,60 Q60,60 80,60 Q100,60 120,60 Q140,60 160,60 Q180,60 200,60 Q220,60 240,60 Q260,60 280,60 Q300,60 320,60 Q340,60 360,60 Q380,60 400,60");
+  }
 }
 
 /* Media Downloader */
 .media-downloader {
   text-align: center;
   padding: 80px 20px;
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #1e3a8a 100%);
+
 }
 
 .downloader-title {

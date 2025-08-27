@@ -1,6 +1,11 @@
 function App() {
   return (
     <div className="app">
+      <div className="background-lights">
+        <div className="light-pink"></div>
+        <div className="light-green"></div>
+        <div className="light-yellow"></div>
+      </div>
       {/* Header */}
       <header className="header">
         <div className="logo">ResyncBot</div>
@@ -98,9 +103,9 @@ function App() {
         </p>
         
         <div className="waveform-container">
-          <svg className="waveform" viewBox="0 0 400 100">
-            <path d="M0,50 Q50,20 100,50 T200,50 Q250,80 300,50 T400,50" 
-                  stroke="#fbbf24" strokeWidth="4" fill="none"/>
+          <svg className="waveform" viewBox="-30 -30 460 180">
+            <path className="wave-1" d="M0,60 Q20,40 40,60 Q60,80 80,60 Q100,40 120,60 Q140,80 160,60 Q180,40 200,60 Q220,80 240,60 Q260,40 280,60 Q300,80 320,60 Q340,40 360,60 Q380,80 400,60" />
+            <path className="wave-2" d="M0,60 Q20,80 40,60 Q60,40 80,60 Q100,80 120,60 Q140,40 160,60 Q180,80 200,60 Q220,40 240,60 Q260,80 280,60 Q300,40 320,60 Q340,80 360,60 Q380,40 400,60" />
           </svg>
         </div>
       </div>

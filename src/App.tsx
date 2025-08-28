@@ -1,11 +1,42 @@
+import { useEffect } from 'react';
+
 function App() {
+  useEffect(() => {
+    setTimeout(() => {
+      document.querySelector('.hero-lights')?.classList.add('visible');
+    }, 500);
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections except hero
+    const sections = document.querySelectorAll('.fade-in, .section-lights');
+    sections.forEach(section => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="app">
-      <div className="background-lights">
-        <div className="light-pink"></div>
-        <div className="light-green"></div>
-        <div className="light-yellow"></div>
+      <div className="hero-lights">
+        <div className="blue-light-left"></div>
+        <div className="blue-light-right"></div>
       </div>
+
+      <div className="light-green section-lights"></div>
+      <div className="light-yellow section-lights"></div>
+      <div className="light-pink section-lights"></div>
+
       {/* Header */}
       <header className="header">
         <div className="logo">ResyncBot</div>
@@ -16,7 +47,7 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <main className="hero">
+      <main className="hero fade-in">
         <div className="profile-circle">
           <span>PFP</span>
         </div>
@@ -34,15 +65,13 @@ function App() {
           <button className="btn-primary">INVITE NOW</button>
           <button className="btn-secondary">SEE FEATURES</button>
         </div>
+        <div className="server-stats">
+          Join 115+ Servers using ResyncBot.
+        </div>
       </main>
 
-      {/* Server Stats */}
-      <div className="server-stats">
-        Join 115+ Servers using ResyncBot.
-      </div>
-
       {/* Resync Demo Section */}
-      <div className="demo-section">
+      <div className="demo-section fade-in">
         {/* Left side - explanation */}
         <div className="demo-content">
           <h2 className="demo-title">What is Resyncing?</h2>
@@ -66,7 +95,7 @@ function App() {
         </div>
       </div>
       {/* Audio Selection Section */}
-      <div className="audio-section">
+      <div className="audio-section fade-in">
         <h2 className="audio-title">Choose your own audio!</h2>
         <p className="audio-description">
           ResyncBot allows you to choose your own audio to resync with! This includes audios from YouTube, Spotify, SoundCloud and more. Try it below by inputting your favourite song.
@@ -96,7 +125,7 @@ function App() {
         </div>
       </div>
       {/* How it Works Section */}
-      <div className="how-it-works">
+      <div className="how-it-works fade-in">
         <h2 className="works-title">How it works.</h2>
         <p className="works-description">
           Resyncbot analyzes the BPM (beats per minute) of both audios, and tries to match the waveforms of both audios as accurately as possible, creating an accurate resync. Users can also have manual control by specifying when the audio should start instead.
@@ -111,7 +140,7 @@ function App() {
       </div>
 
       {/* Media Downloader Section */}
-      <div className="media-downloader">
+      <div className="media-downloader fade-in">
         <h2 className="downloader-title">Built-in Media Downloader.</h2>
         <p className="downloader-description">
           Powered by yt-dlp, ResyncBot has commands that allow you to download your favourite videos in seconds, as well as your favourite audios. Whether it be from YouTube, Instagram, or TikTok, ResyncBot supports it all, eliminating the need for third-party websites.
@@ -128,7 +157,7 @@ function App() {
       </div>
 
       {/* Final CTA */}
-      <div className="final-cta">
+      <div className="final-cta fade-in">
         <h2 className="cta-title">Ready to start Resyncing?</h2>
         <button className="btn-invite-final">Invite ResyncBot to your server.</button>
       </div>

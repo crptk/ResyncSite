@@ -13,8 +13,7 @@
   overflow-x: hidden;
 }
 
-.app::before {
-  content: '';
+.blue-light-left {
   position: absolute;
   top: 20%;
   left: -400px;
@@ -27,8 +26,7 @@
   pointer-events: none;
 }
 
-.app::after {
-  content: '';
+.blue-light-right {
   position: absolute;
   top: -5%;
   right: -400px;
@@ -526,4 +524,50 @@
 
 .btn-invite-final:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+
+/* Initial state - hidden */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Visible state when in viewport */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero section starts visible */
+.hero {
+  opacity: 0;
+}
+
+.hero.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Blue lights that appear with hero */
+.hero-lights {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.hero-lights.visible {
+  opacity: 1;
+}
+
+/* Section-specific lights that fade in on scroll */
+.section-lights {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.section-lights.visible {
+  opacity: 1;
 }

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, Link } from "react-router-dom";
-// import pfp from "src/assets/pfp.png";
 
 function Home() {
     const [isGenerating1, setIsGenerating1] = useState(false);
@@ -527,7 +526,7 @@ function Home() {
                 <h2 className="downloader-title">Built-in Media Downloader</h2>
                 <p className="downloader-description">
                     Paste a link and preview what ResyncBot can fetch. Choose Audio or Video.
-                    (Downloads disabled here — demo preview only.)
+                    (Downloads are disabled on this page — preview only. To download audio or video, invite ResyncBot to your server and use /downloadvideo or /downloadaudio.)
                 </p>
 
                 <div className="media-input-row">

@@ -9,7 +9,8 @@ function Home() {
     const [serverCount, setServerCount] = useState<number | null>(null);
     const [mediaUrl, setMediaUrl] = useState('');
     const [isPreviewing, setIsPreviewing] = useState(false);
-    const [stuck, setStuck] = useState(false);
+    const [, setStuck] = useState(false); ✅
+
     const [lightsVisible, setLightsVisible] = useState(false);
     const discord_invite = "https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands"
     const handleRandomResync = async () => {

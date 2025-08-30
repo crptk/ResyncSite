@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function Home() {
     const [isGenerating1, setIsGenerating1] = useState(false);
     const [isGenerating2, setIsGenerating2] = useState(false);
     const [audioUrl, setAudioUrl] = useState('');
-    const [detectedBpm, setDetectedBpm] = useState(null);
+    const [detectedBpm, setDetectedBpm] = useState<null | number | "DURATION_ERROR" | "ERROR">(null);
     const [isAnalyzingBpm, setIsAnalyzingBpm] = useState(false);
     const [serverCount, setServerCount] = useState<number | null>(null);
     const [mediaUrl, setMediaUrl] = useState('');
@@ -250,9 +250,10 @@ function Home() {
             // Optional: Reflow trigger
             container.offsetHeight;
 
-        } catch (e) {
+        } catch (e: unknown) {
             if (container) {
-                container.innerHTML = `<p style="color: #ef4444; font-size: 16px;">Error: ${e.message || e}</p>`;
+                const msg = e instanceof Error ? e.message : String(e);
+                container.innerHTML = `<p style="color: #ef4444; font-size: 16px;">Error: ${msg}</p>`;
             }
         } finally {
             setIsPreviewing(false);

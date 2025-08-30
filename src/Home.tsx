@@ -91,7 +91,7 @@ function Home() {
         container.innerHTML = '<span class="generating-text green">Generating...</span>';
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/demo/custom-resync', {
+            const response = await fetch('https://resyncbot.fly.dev/demo/custom-resync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ function Home() {
         setDetectedBpm(null);
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/demo/analyze-bpm', {
+            const response = await fetch('https://resyncbot.fly.dev/demo/analyze-bpm', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -178,7 +178,7 @@ function Home() {
         }
 
         try {
-            const res = await fetch('http://127.0.0.1:5000/demo/preview-media', {
+            const res = await fetch('https://resyncbot.fly.dev/demo/preview-media', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url: mediaUrl, kind: "auto" })
@@ -285,7 +285,7 @@ function Home() {
         // For live server count update
         const fetchServers = async () => {
             try {
-                const res = await fetch("http://127.0.0.1:5000/metrics/servers");
+                const res = await fetch("https://resyncbot.fly.dev/metrics/servers");
                 const json = await res.json();
                 if (typeof json?.total_servers === "number") {
                     setServerCount(json.total_servers);
@@ -302,7 +302,7 @@ function Home() {
     useEffect(() => {
         const fetchServers = async () => {
             try {
-                const res = await fetch('http://127.0.0.1:5000/metrics/servers');
+                const res = await fetch('https://resyncbot.fly.dev/metrics/servers');
                 const json = await res.json();
                 if (typeof json?.total_servers === 'number') setServerCount(json.total_servers);
             } catch {

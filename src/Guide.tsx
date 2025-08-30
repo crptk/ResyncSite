@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
 import './index.css';
 
 type Command = { name: string; desc: string };
@@ -39,8 +38,6 @@ function Section({
 }
 
 const BotGuide: React.FC = () => {
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [stuck, setStuck] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

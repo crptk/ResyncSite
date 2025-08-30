@@ -350,7 +350,7 @@ function Home() {
             {/* Hero Section */}
             <main className="hero fade-in">
                 <div className="profile-circle">
-                    <img src="src/assets/pfp.png" alt="ResyncBot PFP" className="pfp-image" />
+                    <img src="/pfp.png" alt="ResyncBot PFP" className="pfp-image" />
                 </div>
 
                 <h1 className="hero-title">
@@ -369,7 +369,7 @@ function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     >
-                    <img src="src/assets/discord-logo.svg" alt="Discord" className="btn-icon" />
+                    <img src="/discord-logo.svg" alt="Discord" className="btn-icon" />
                     INVITE NOW
                     </a>
 

@@ -1,168 +1,55 @@
-import { useEffect } from 'react';
+// App.tsx
+import { useEffect, useRef, useState } from 'react';
+import { Outlet, Link } from 'react-router-dom';
 
 function App() {
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const [stuck, setStuck] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
-    setTimeout(() => {
-      document.querySelector('.hero-lights')?.classList.add('visible');
-    }, 500);
+    const onScroll = () => setStuck(window.scrollY > 12);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
     };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections except hero
-    const sections = document.querySelectorAll('.fade-in, .section-lights');
-    sections.forEach(section => observer.observe(section));
-
-    return () => observer.disconnect();
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
-    <div className="app">
-      <div className="hero-lights">
-        <div className="blue-light-left"></div>
-        <div className="blue-light-right"></div>
-      </div>
+    <div className="app min-h-screen bg-gradient-to-b from-black via-[#020409] to-[#000106] text-white font-sans">
+      {/* Navbar */}
+      <header
+        ref={headerRef}
+        className={`header ${stuck ? 'is-sticky' : ''} flex flex-col md:flex-row items-center md:justify-between gap-3 px-6 py-4`}
+      >
+        <div className="flex justify-between items-center w-full md:w-auto">
+          <div className="logo text-xl font-bold">ResyncBot</div>
+          
+        </div>
 
-      <div className="light-green section-lights"></div>
-      <div className="light-yellow section-lights"></div>
-      <div className="light-pink section-lights"></div>
-
-      {/* Header */}
-      <header className="header">
-        <div className="logo">ResyncBot</div>
-        <div className="nav-buttons">
-          <button className="nav-link">Join the Support Server</button>
-          <button className="nav-link">Invite ResyncBot</button>
+        {/* Navigation links - hidden on mobile when menu is closed */}
+        <div className={`nav-buttons ${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row md:flex-wrap justify-center gap-x-4 gap-y-3 text-sm md:text-base absolute md:static top-16 left-0 w-full md:w-auto bg-[rgba(8,10,14,0.95)] md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-4 md:p-0`}>
+          <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+          <Link to="/guide" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Bot Guide</Link>
+          <a href="https://discord.gg/rZTY8HZy" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Join ResyncHub</a>
+          <a href="https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Invite ResyncBot</a>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <main className="hero fade-in">
-        <div className="profile-circle">
-          <span>PFP</span>
-        </div>
-        
-        <h1 className="hero-title">
-          Discord's First <br />
-          <span className="hero-highlight">Video Resyncing</span> Tool.
-        </h1>
-        
-        <p className="hero-description">
-          ResyncBot is a video resyncing tool that allows users to resync their favourite edits in seconds, viewing them in a different light.
-        </p>
-        
-        <div className="hero-buttons">
-          <button className="btn-primary">INVITE NOW</button>
-          <button className="btn-secondary">SEE FEATURES</button>
-        </div>
-        <div className="server-stats">
-          Join 115+ Servers using ResyncBot.
-        </div>
-      </main>
-
-      {/* Resync Demo Section */}
-      <div className="demo-section fade-in">
-        {/* Left side - explanation */}
-        <div className="demo-content">
-          <h2 className="demo-title">What is Resyncing?</h2>
-          <p className="demo-description">
-            Resyncing is the practice of replacing an edit or music video's audio with a different one that fits. This has been something editors and edit enjoyers alike have done for years, and ResyncBot makes it so much easier to do. Just give it a try using the example edit on the right!
-          </p>
-          <button className="btn-gradient">Generate a Random Resync</button>
-        </div>
-
-        {/* Right side - video placeholders */}
-        <div className="demo-videos">
-          <div className="video-container">
-            <div className="video-label">Original</div>
-            <div className="video-placeholder"></div>
-          </div>
-          
-          <div className="video-container">
-            <div className="video-label">Resynced</div>
-            <div className="video-placeholder"></div>
-          </div>
-        </div>
-      </div>
-      {/* Audio Selection Section */}
-      <div className="audio-section fade-in">
-        <h2 className="audio-title">Choose your own audio!</h2>
-        <p className="audio-description">
-          ResyncBot allows you to choose your own audio to resync with! This includes audios from YouTube, Spotify, SoundCloud and more. Try it below by inputting your favourite song.
-        </p>
-        
-        <div className="audio-input-container">
-          <input 
-            type="text" 
-            placeholder="Paste your audio URL here..." 
-            className="audio-input"
-          />
-          <button className="btn-generate">Generate Resync</button>
-        </div>
-
-        <div className="audio-demo">
-          <div className="audio-video-container">
-            <div className="video-label">Original</div>
-            <div className="video-placeholder"></div>
-          </div>
-          
-          <div className="audio-video-container">
-            <div className="video-label">Resynced</div>
-            <div className="video-placeholder generating">
-              <span className="generating-text">Generating...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* How it Works Section */}
-      <div className="how-it-works fade-in">
-        <h2 className="works-title">How it works.</h2>
-        <p className="works-description">
-          Resyncbot analyzes the BPM (beats per minute) of both audios, and tries to match the waveforms of both audios as accurately as possible, creating an accurate resync. Users can also have manual control by specifying when the audio should start instead.
-        </p>
-        
-        <div className="waveform-container">
-          <svg className="waveform" viewBox="-30 -30 460 180">
-            <path className="wave-1" d="M0,60 Q20,40 40,60 Q60,80 80,60 Q100,40 120,60 Q140,80 160,60 Q180,40 200,60 Q220,80 240,60 Q260,40 280,60 Q300,80 320,60 Q340,40 360,60 Q380,80 400,60" />
-            <path className="wave-2" d="M0,60 Q20,80 40,60 Q60,40 80,60 Q100,80 120,60 Q140,40 160,60 Q180,80 200,60 Q220,40 240,60 Q260,80 280,60 Q300,40 320,60 Q340,80 360,60 Q380,40 400,60" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Media Downloader Section */}
-      <div className="media-downloader fade-in">
-        <h2 className="downloader-title">Built-in Media Downloader.</h2>
-        <p className="downloader-description">
-          Powered by yt-dlp, ResyncBot has commands that allow you to download your favourite videos in seconds, as well as your favourite audios. Whether it be from YouTube, Instagram, or TikTok, ResyncBot supports it all, eliminating the need for third-party websites.
-        </p>
-        
-        <div className="platform-showcase">
-          <div className="platform-item">YouTube</div>
-          <div className="platform-item">TikTok</div>
-          <div className="platform-item">Instagram</div>
-          <div className="platform-item">SoundCloud</div>
-          <div className="platform-item">Spotify</div>
-          <div className="platform-item">Twitter</div>
-        </div>
-      </div>
-
-      {/* Final CTA */}
-      <div className="final-cta fade-in">
-        <h2 className="cta-title">Ready to start Resyncing?</h2>
-        <button className="btn-invite-final">Invite ResyncBot to your server.</button>
-      </div>
+      {/* Render Home or Guide inside here */}
+      <Outlet />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

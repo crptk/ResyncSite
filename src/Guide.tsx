@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState } from "react";
+import React, {useEffect} from "react";
 import './index.css';
 
 type Command = { name: string; desc: string };

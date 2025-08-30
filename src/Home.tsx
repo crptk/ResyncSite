@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 function Home() {
     const [isGenerating1, setIsGenerating1] = useState(false);
@@ -10,7 +9,6 @@ function Home() {
     const [serverCount, setServerCount] = useState<number | null>(null);
     const [mediaUrl, setMediaUrl] = useState('');
     const [isPreviewing, setIsPreviewing] = useState(false);
-    const headerRef = useRef<HTMLDivElement | null>(null);
     const [stuck, setStuck] = useState(false);
     const [lightsVisible, setLightsVisible] = useState(false);
     const discord_invite = "https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands"
@@ -321,7 +319,6 @@ function Home() {
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
-    const { pathname } = useLocation();
 
     useEffect(() => {
         const t = setTimeout(() => setLightsVisible(true), 300);

@@ -58,7 +58,8 @@ function Home() {
           Your browser does not support the video tag.
         </video>
       `;
-
+        const videoEl = container.querySelector("video") as HTMLVideoElement | null;
+        if (videoEl) videoEl.volume = 0.5; // start at 50% volume
         } catch (error) {
             console.error('Random resync failed:', error);
             // Show error in the container
@@ -115,7 +116,8 @@ function Home() {
           Your browser does not support the video tag.
         </video>
       `;
-
+        const videoEl = container.querySelector("video") as HTMLVideoElement | null;
+        if (videoEl) videoEl.volume = 0.5; // start at 50% volume
         } catch (error) {
             console.error('Custom resync failed:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
@@ -244,7 +246,8 @@ function Home() {
                 }
         </div>
       `;
-
+            const videoEl = container.querySelector("video") as HTMLVideoElement | null;
+            if (videoEl) videoEl.volume = 0.5;
 
             // Optional: Reflow trigger
             container.offsetHeight;

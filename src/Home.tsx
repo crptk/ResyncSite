@@ -28,7 +28,7 @@ function Home() {
         container.innerHTML = '<span class="generating-text purple">Generating...</span>';
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/demo/random-resync', {
+            const response = await fetch('https://resyncbot.fly.dev/demo/random-resync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

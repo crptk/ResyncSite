@@ -417,7 +417,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="https://resyncbot.fly.dev/demo/video"
+                                    src="https://resyncbot.fly.dev/demo/video_purple"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >
@@ -467,7 +467,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="https://resyncbot.fly.dev/demo/video"
+                                    src="https://resyncbot.fly.dev/demo/video_green"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >

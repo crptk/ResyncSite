@@ -80,7 +80,7 @@ function Home() {
     };
 
     const handleCustomResync = async () => {
-        if (isGenerating2 || !audioUrl.trim()) return;
+        if (isGenerating2 || !audioUrlResync.trim()) return;
 
         setIsGenerating2(true);
 

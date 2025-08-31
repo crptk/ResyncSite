@@ -130,7 +130,7 @@ function Home() {
             setIsGenerating2(false);
         }
     };
-
+// test
     const handleBpmAnalysis = async () => {
         if (isAnalyzingBpm || !audioUrlBpm.trim()) return;
 

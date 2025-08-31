@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 function Home() {
     const [isGenerating1, setIsGenerating1] = useState(false);
     const [isGenerating2, setIsGenerating2] = useState(false);
-    const [audioUrl, setAudioUrl] = useState('');
+    const [audioUrlResync, setAudioUrlResync] = useState('');
+    const [audioUrlBpm, setAudioUrlBpm] = useState('');
     const [detectedBpm, setDetectedBpm] = useState<null | number | "DURATION_ERROR" | "ERROR">(null);
     const [isAnalyzingBpm, setIsAnalyzingBpm] = useState(false);
     const [serverCount, setServerCount] = useState<number | null>(null);
@@ -86,7 +87,7 @@ function Home() {
         const container = document.getElementById('resynced-demo-2');
         if (!container) {
             console.error('Could not find resynced-demo-1 container');
-            setIsGenerating1(false);
+            setIsGenerating2(false);
             return;
         }
         container.className = 'video-content generating';
@@ -98,7 +99,7 @@ function Home() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ audio_url: audioUrl })
+                body: JSON.stringify({ audio_url: audioUrlResync })
             });
 
             if (!response.ok) {
@@ -131,7 +132,7 @@ function Home() {
     };
 
     const handleBpmAnalysis = async () => {
-        if (isAnalyzingBpm || !audioUrl.trim()) return;
+        if (isAnalyzingBpm || !audioUrlBpm.trim()) return;
 
         setIsAnalyzingBpm(true);
         setDetectedBpm(null);
@@ -142,7 +143,7 @@ function Home() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ audio_url: audioUrl })
+                body: JSON.stringify({ audio_url: audioUrlBpm })
             });
 
             if (!response.ok) {
@@ -460,13 +461,13 @@ function Home() {
                         type="text"
                         placeholder="Paste your audio URL here..."
                         className="audio-input"
-                        value={audioUrl}
-                        onChange={(e) => setAudioUrl(e.target.value)}
+                        value={audioUrlResync}
+                        onChange={(e) => setAudioUrlResync(e.target.value)}
                     />
                     <button
                         className="btn-generate"
                         onClick={handleCustomResync}
-                        disabled={isGenerating2 || !audioUrl.trim()}
+                        disabled={isGenerating2 || !audioUrlResync.trim()}
                     >
                         {isGenerating2 ? 'Generating...' : 'Generate Resync'}
                     </button>
@@ -509,15 +510,15 @@ function Home() {
                         type="text"
                         placeholder="Paste your audio URL here..."
                         className="audio-input-bpm"
-                        value={audioUrl}
-                        onChange={(e) => setAudioUrl(e.target.value)}
+                        value={audioUrlBpm}
+                        onChange={(e) => setAudioUrlBpm(e.target.value)}
                     />
                     <button
                         className="btn-generate-bpm"
                         onClick={handleBpmAnalysis}
-                        disabled={isAnalyzingBpm || !audioUrl.trim()}
+                        disabled={isAnalyzingBpm || !audioUrlBpm.trim()}
                     >
-                        {isGenerating2 ? 'Analyzing...' : 'Analyze BPM'}
+                        {isAnalyzingBpm ? 'Analyzing...' : 'Analyze BPM'}
                     </button>
                 </div>
                 <text className="bpm-generate bpm-text">

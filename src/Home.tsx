@@ -59,7 +59,7 @@ function Home() {
         </video>
       `;
         const videoEl = container.querySelector("video") as HTMLVideoElement | null;
-        if (videoEl) videoEl.volume = 0.5; // start at 50% volume
+        if (videoEl) videoEl.volume = 0.1; // start at 50% volume
         } catch (error) {
             console.error('Random resync failed:', error);
             // Show error in the container
@@ -117,7 +117,7 @@ function Home() {
         </video>
       `;
         const videoEl = container.querySelector("video") as HTMLVideoElement | null;
-        if (videoEl) videoEl.volume = 0.5; // start at 50% volume
+        if (videoEl) videoEl.volume = 0.1; // start at 50% volume
         } catch (error) {
             console.error('Custom resync failed:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
@@ -247,7 +247,7 @@ function Home() {
         </div>
       `;
             const videoEl = container.querySelector("video") as HTMLVideoElement | null;
-            if (videoEl) videoEl.volume = 0.5;
+            if (videoEl) videoEl.volume = 0.1;
 
             // Optional: Reflow trigger
             container.offsetHeight;
@@ -327,6 +327,13 @@ function Home() {
     useEffect(() => {
         const t = setTimeout(() => setLightsVisible(true), 300);
         return () => clearTimeout(t);
+    }, []);
+    useEffect(() => {
+        // Set initial volume for all demo videos
+        const videos = document.querySelectorAll("video");
+        videos.forEach((video) => {
+            (video as HTMLVideoElement).volume = 0.1;
+        });
     }, []);
 
     return (

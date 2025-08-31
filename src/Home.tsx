@@ -7,6 +7,7 @@ function Home() {
     const [detectedBpm, setDetectedBpm] = useState<null | number | "DURATION_ERROR" | "ERROR">(null);
     const [isAnalyzingBpm, setIsAnalyzingBpm] = useState(false);
     const [serverCount, setServerCount] = useState<number | null>(null);
+    const [memberCount, setMemberCount] = useState<number | null>(null);
     const [mediaUrl, setMediaUrl] = useState('');
     const [isPreviewing, setIsPreviewing] = useState(false);
     const [, setStuck] = useState(false);
@@ -286,7 +287,7 @@ function Home() {
         sections.forEach(section => observer.observe(section));
 
         // For live server count update
-        const fetchServers = async () => {
+        const fetchServerStats = async () => {
             try {
                 const res = await fetch("https://resyncbot.fly.dev/metrics/servers");
                 const json = await res.json();
@@ -297,25 +298,34 @@ function Home() {
                 setServerCount(null);
             }
         };
-        fetchServers();
-        const id = setInterval(fetchServers, 5 * 60 * 1000); // refresh every 5 mins
+        fetchServerStats();
+        const id = setInterval(fetchServerStats, 5 * 60 * 1000); // refresh every 5 mins
         return () => clearInterval(id);
     }, []);
 
     useEffect(() => {
-        const fetchServers = async () => {
+        const fetchServerStats = async () => {
             try {
-                const res = await fetch('https://resyncbot.fly.dev/metrics/servers');
+                const res = await fetch("https://resyncbot.fly.dev/metrics/servers");
                 const json = await res.json();
-                if (typeof json?.total_servers === 'number') setServerCount(json.total_servers);
-            } catch {
+                if (typeof json?.total_servers === "number") {
+                    setServerCount(json.total_servers);
+                }
+                if (typeof json?.total_members === "number") {
+                    setMemberCount(json.total_members);
+                }
+            } catch (err) {
+                console.error("Failed to fetch server stats:", err);
                 setServerCount(null);
+                setMemberCount(null);
             }
         };
-        fetchServers();
-        const id = setInterval(fetchServers, 5 * 60 * 1000);
+
+        fetchServerStats();
+        const id = setInterval(fetchServerStats, 5 * 60 * 1000);
         return () => clearInterval(id);
     }, []);
+
 
     useEffect(() => {
         const onScroll = () => setStuck(window.scrollY > 12);
@@ -387,12 +397,13 @@ function Home() {
                         SEE FEATURES
                     </a>
                 </div>
-                <div className="server-stats">
-                    {serverCount === null
-                        ? "Join ResyncBot on Discord."
-                        : `Join ${serverCount.toLocaleString()} ${serverCount === 1 ? "Server" : "Servers"
-                        } using ResyncBot`}
-                </div>
+                    <div className="server-stats">
+                    {serverCount === null || memberCount === null ? (
+                        "Join ResyncBot on Discord."
+                    ) : (
+                        `Serving ${memberCount.toLocaleString()} people and ${serverCount.toLocaleString()} ${serverCount === 1 ? "server" : "servers"} using ResyncBot.`
+                    )}
+                    </div>
             </main>
 
             {/* Resync Demo Section */}

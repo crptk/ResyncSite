@@ -401,7 +401,7 @@ function Home() {
                     {serverCount === null || memberCount === null ? (
                         "Join ResyncBot on Discord."
                     ) : (
-                        `Serving ${memberCount.toLocaleString()} people and ${serverCount.toLocaleString()} ${serverCount === 1 ? "server" : "servers"} using ResyncBot.`
+                        `Join ${memberCount.toLocaleString()} people and ${serverCount.toLocaleString()} ${serverCount === 1 ? "server" : "servers"} using ResyncBot.`
                     )}
                     </div>
             </main>

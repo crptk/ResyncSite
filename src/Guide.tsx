@@ -169,7 +169,7 @@ const BotGuide: React.FC = () => {
               <ul className="guide-list">
                 <li>Unlimited auto & random resyncs</li>
                 <li>Priority processing queue</li>
-                <li>$3/month or $25 lifetime</li>
+                <li>$3/month, $15/year, or $25 lifetime (LIMITED)</li>
                 <li>No watermark</li>
                 <li>Supports development ❤️</li>
               </ul>

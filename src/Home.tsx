@@ -89,15 +89,19 @@ function Home() {
         setIsGenerating2(true);
 
         const sessionId = Date.now().toString();
-        const source = new EventSource(`https://resyncbot.fly.dev/progress/${sessionId}`);
-
-        source.onmessage = (event) => {
-            const container = document.getElementById('resynced-demo-2');
-            if (container) {
-                container.innerHTML = `<span class="generating-text green">${event.data}</span>`;
+        let pollInterval: number;
+        pollInterval = setInterval(async () => {
+            try {
+                const res = await fetch(`https://resyncbot.fly.dev/progress/status?session_id=${sessionId}`);
+                const data = await res.json();
+                if (container && data?.message) {
+                    container.innerHTML = `<span class="generating-text green">${data.message}</span>`;
+                }
+            } catch (err) {
+                console.warn("Polling failed:", err);
             }
-        };
-
+        }, 2000);
+        
         const container = document.getElementById('resynced-demo-2');
         if (!container) {
             console.error('Could not find resynced-demo-1 container');

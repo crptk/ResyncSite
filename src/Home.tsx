@@ -78,7 +78,7 @@ function Home() {
             container.innerHTML = `<span class="generating-text purple">Error: ${errorMessage}</span>`;
         } finally {
             setIsGenerating1(false);
-            clearInterval(pollInterval); // ✅ Stop polling once job is done
+            clearInterval(pollInterval);
         }
     };
 
@@ -101,7 +101,7 @@ function Home() {
                 console.warn("Polling failed:", err);
             }
         }, 2000);
-        
+
         const container = document.getElementById('resynced-demo-2');
         if (!container) {
             console.error('Could not find resynced-demo-1 container');
@@ -151,7 +151,7 @@ function Home() {
             container.innerHTML = `<span class="generating-text green">Error: ${errorMessage}</span>`;
         } finally {
             setIsGenerating2(false);
-            source.close();
+            clearInterval(pollInterval);
         }
     };
     

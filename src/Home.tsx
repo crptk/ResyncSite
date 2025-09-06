@@ -21,31 +21,34 @@ function Home() {
         setIsGenerating1(true);
 
         const sessionId = Date.now().toString();
-        const source = new EventSource(`https://resyncbot.fly.dev/progress/${sessionId}`);
-
-        source.onmessage = (event) => {
-        const container = document.getElementById('resynced-demo-1');
-        if (container) {
-            container.innerHTML = `<span class="generating-text purple">${event.data}</span>`;
-        }
-        };
-
+        let pollInterval: number;
         const container = document.getElementById('resynced-demo-1');
         if (!container) {
             console.error('Could not find resynced-demo-1 container');
             setIsGenerating1(false);
             return;
         }
+
         container.className = 'video-content generating';
         container.innerHTML = '<span class="generating-text purple">Generating...</span>';
+
+        pollInterval = setInterval(async () => {
+            try {
+                const res = await fetch(`https://resyncbot.fly.dev/progress/status?session_id=${sessionId}`);
+                const data = await res.json();
+                if (container && data?.message) {
+                    container.innerHTML = `<span class="generating-text purple">${data.message}</span>`;
+                }
+            } catch (err) {
+                console.warn("Polling failed:", err);
+            }
+        }, 2000);
 
         try {
             const response = await fetch('https://resyncbot.fly.dev/demo/random-resync', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                  body: JSON.stringify({
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
                     audio_url: audioUrlResync.trim(),
                     session_id: sessionId
                 })
@@ -56,43 +59,29 @@ function Home() {
                 throw new Error(errorData.error || 'Random resync failed');
             }
 
-            // Get the video blob
             const videoBlob = await response.blob();
             const videoUrl = URL.createObjectURL(videoBlob);
 
-            // Replace the generating content with the video
-            const container = document.getElementById('resynced-demo-1');
-            if (!container) {
-                console.error('Could not find resynced-demo-1 container');
-                setIsGenerating1(false);
-                return;
-            }
             container.className = 'video-content has-video';
             container.innerHTML = `
-        <video controls onContextMenu="return false;">
-          <source src="${videoUrl}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      `;
-        const videoEl = container.querySelector("video") as HTMLVideoElement | null;
-        if (videoEl) videoEl.volume = 0.1; // start at 50% volume
+                <video controls onContextMenu="return false;">
+                <source src="${videoUrl}" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            `;
+            const videoEl = container.querySelector("video") as HTMLVideoElement | null;
+            if (videoEl) videoEl.volume = 0.1;
         } catch (error) {
             console.error('Random resync failed:', error);
-            // Show error in the container
-            const container = document.getElementById('resynced-demo-1');
-            if (!container) {
-                console.error('Could not find resynced-demo-1 container');
-                setIsGenerating1(false);
-                return;
-            }
-            container.className = 'video-content generating';
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+            container.className = 'video-content generating';
             container.innerHTML = `<span class="generating-text purple">Error: ${errorMessage}</span>`;
         } finally {
             setIsGenerating1(false);
-            source.close();
+            clearInterval(pollInterval); // ✅ Stop polling once job is done
         }
     };
+
 
     const handleCustomResync = async () => {
         if (isGenerating2 || !audioUrlResync.trim()) return;
@@ -121,7 +110,7 @@ function Home() {
         try {
             const formData = new FormData();
             formData.append("audio_url", audioUrlResync.trim());
-            formData.append("seesion_id", sessionId);
+            formData.append("session_id", sessionId);
 
             const response = await fetch('https://resyncbot.fly.dev/demo/custom-resync', {
                 method: 'POST',

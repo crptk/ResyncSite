@@ -22,7 +22,7 @@ function Home() {
 
         const sessionId = Date.now().toString();
         const source = new EventSource(`https://resyncbot.fly.dev/progress/${sessionId}`);
-        
+
         source.onmessage = (event) => {
         const container = document.getElementById('resynced-demo-1');
         if (container) {
@@ -96,6 +96,16 @@ function Home() {
 
         setIsGenerating2(true);
 
+        const sessionId = Date.now().toString();
+        const source = new EventSource(`https://resyncbot.fly.dev/progress/${sessionId}`);
+
+        source.onmessage = (event) => {
+            const container = document.getElementById('resynced-demo-2');
+            if (container) {
+                container.innerHTML = `<span class="generating-text green">${event.data}</span>`;
+            }
+        };
+
         const container = document.getElementById('resynced-demo-2');
         if (!container) {
             console.error('Could not find resynced-demo-1 container');
@@ -106,12 +116,16 @@ function Home() {
         container.innerHTML = '<span class="generating-text green">Generating...</span>';
 
         try {
+            const formData = new FormData();
+            formData.append("audio_url", audioUrlResync.trim());
+            formData.append("seesion_id", sessionId);
+
             const response = await fetch('https://resyncbot.fly.dev/demo/custom-resync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ audio_url: audioUrlResync })
+                body: formData,
             });
 
             if (!response.ok) {
@@ -122,24 +136,23 @@ function Home() {
             const videoBlob = await response.blob();
             const videoUrl = URL.createObjectURL(videoBlob);
 
-            // Replace generating content with video
             container.className = 'video-content has-video';
             container.innerHTML = `
-        <video controls onContextMenu="return false;">
-          <source src="${videoUrl}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      `;
-        const videoEl = container.querySelector("video") as HTMLVideoElement | null;
-        if (videoEl) videoEl.volume = 0.1; // start at 50% volume
+            <video controls onContextMenu="return false;">
+            <source src="${videoUrl}" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            `;
+            const videoEl = container.querySelector("video") as HTMLVideoElement | null;
+            if (videoEl) videoEl.volume = 0.1;
         } catch (error) {
             console.error('Custom resync failed:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-
             container.className = 'video-content generating';
             container.innerHTML = `<span class="generating-text green">Error: ${errorMessage}</span>`;
         } finally {
             setIsGenerating2(false);
+            source.close();
         }
     };
     

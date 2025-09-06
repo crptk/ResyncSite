@@ -45,7 +45,10 @@ function Home() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ session_id: sessionId })
+                  body: JSON.stringify({
+                    audio_url: audioUrlResync.trim(),
+                    session_id: sessionId
+                })
             });
 
             if (!response.ok) {
@@ -125,7 +128,10 @@ function Home() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: formData,
+                body: JSON.stringify({
+                    audio_url: audioUrlResync.trim(),
+                    session_id: sessionId
+                }),
             });
 
             if (!response.ok) {

@@ -12,13 +12,23 @@ function Home() {
     const [mediaUrl, setMediaUrl] = useState('');
     const [isPreviewing, setIsPreviewing] = useState(false);
     const [, setStuck] = useState(false);
-
     const [lightsVisible, setLightsVisible] = useState(false);
     const discord_invite = "https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands"
-    const handleRandomResync = async () => {
-        if (isGenerating1) return; // Prevent double-clicks
 
+
+    const handleRandomResync = async () => {
+        if (isGenerating1) return;
         setIsGenerating1(true);
+
+        const sessionId = Date.now().toString();
+        const source = new EventSource(`https://resyncbot.fly.dev/progress/${sessionId}`);
+        
+        source.onmessage = (event) => {
+        const container = document.getElementById('resynced-demo-1');
+        if (container) {
+            container.innerHTML = `<span class="generating-text purple">${event.data}</span>`;
+        }
+        };
 
         const container = document.getElementById('resynced-demo-1');
         if (!container) {
@@ -34,7 +44,8 @@ function Home() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({ session_id: sessionId })
             });
 
             if (!response.ok) {
@@ -76,6 +87,7 @@ function Home() {
             container.innerHTML = `<span class="generating-text purple">Error: ${errorMessage}</span>`;
         } finally {
             setIsGenerating1(false);
+            source.close();
         }
     };
 
@@ -546,7 +558,7 @@ function Home() {
             <div className="media-downloader fade-in">
                 <h2 className="downloader-title">Built-in Media Downloader</h2>
                 <p className="downloader-description">
-                    Paste a link and preview what ResyncBot can fetch. Choose Audio or Video.
+                    Paste a link and preview what ResyncBot can fetch. Choose Audio or Video (Youtube and Spotify not supported).
                     (Downloads are disabled on this page — preview only. To download audio or video, invite ResyncBot to your server and use /downloadvideo or /downloadaudio.)
                 </p>
 

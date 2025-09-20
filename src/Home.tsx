@@ -36,7 +36,7 @@ function Home() {
             try {
                 const res = await fetch(`https://resyncbot.fly.dev/progress/status?session_id=${sessionId}`);
                 const data = await res.json();
-                if (container && data?.message) {
+                if (container && data?.message && container.classList.contains("generating")) {
                     container.innerHTML = `<span class="generating-text purple">${data.message}</span>`;
                 }
             } catch (err) {
@@ -61,7 +61,7 @@ function Home() {
 
             const videoBlob = await response.blob();
             const videoUrl = URL.createObjectURL(videoBlob);
-
+            clearInterval(pollInterval);
             container.className = 'video-content has-video';
             container.innerHTML = `
                 <video controls onContextMenu="return false;">
@@ -72,6 +72,7 @@ function Home() {
             const videoEl = container.querySelector("video") as HTMLVideoElement | null;
             if (videoEl) videoEl.volume = 0.1;
         } catch (error) {
+            clearInterval(pollInterval);
             console.error('Random resync failed:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
             container.className = 'video-content generating';
@@ -134,7 +135,7 @@ function Home() {
 
             const videoBlob = await response.blob();
             const videoUrl = URL.createObjectURL(videoBlob);
-
+            clearInterval(pollInterval);
             container.className = 'video-content has-video';
             container.innerHTML = `
             <video controls onContextMenu="return false;">
@@ -145,6 +146,7 @@ function Home() {
             const videoEl = container.querySelector("video") as HTMLVideoElement | null;
             if (videoEl) videoEl.volume = 0.1;
         } catch (error) {
+            clearInterval(pollInterval);
             console.error('Custom resync failed:', error);
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
             container.className = 'video-content generating';

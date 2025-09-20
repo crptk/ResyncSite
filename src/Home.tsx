@@ -570,14 +570,14 @@ function Home() {
             <div className="media-downloader fade-in">
                 <h2 className="downloader-title">Built-in Media Downloader</h2>
                 <p className="downloader-description">
-                    Paste a link and preview what ResyncBot can fetch. Choose Audio or Video (Youtube and Spotify not supported).
+                    Paste a link and preview what ResyncBot can fetch. Choose Audio or Video (Youtube and Spotify not supported). <br />
                     (Downloads are disabled on this page — preview only. To download audio or video, invite ResyncBot to your server and use /downloadvideo or /downloadaudio.)
                 </p>
 
                 <div className="media-input-row">
                     <input
                         className="audio-input-media"
-                        placeholder="Paste media URL (YouTube, TikTok, Instagram, SoundCloud, etc.)"
+                        placeholder="Paste media URL (TikTok, I nstagram, SoundCloud, etc.)"
                         value={mediaUrl}
                         onChange={(e) => setMediaUrl(e.target.value)}
                     />

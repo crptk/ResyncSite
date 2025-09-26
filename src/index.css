@@ -1202,3 +1202,206 @@ html {
     margin-bottom: 200px;
   }
 }
+
+/* Laptop screen fixes (1024px - 1440px) */
+@media (max-width: 1440px) and (min-width: 1025px) {
+  .demo-section {
+    height: auto;
+    min-height: 70vh;
+    padding: 40px 20px;
+  }
+  
+  .audio-section {
+    height: auto;
+    min-height: 70vh;
+    padding: 60px 20px;
+  }
+  
+  .how-it-works {
+    height: auto;
+    min-height: 70vh;
+    padding: 60px 20px;
+  }
+  
+  .media-downloader {
+    height: auto;
+    min-height: 60vh;
+    padding: 60px 20px;
+  }
+  
+  .final-cta {
+    height: auto;
+    min-height: 60vh;
+    padding: 80px 20px;
+  }
+}
+
+/* Medium laptop screens (1024px - 1366px) */
+@media (max-width: 1366px) and (min-width: 1025px) {
+  .hero {
+    height: calc(90vh - 80px);
+    padding: 40px 20px;
+  }
+  
+  .hero-title {
+    font-size: 42px;
+  }
+  
+  .server-stats {
+    font-size: 24px;
+    padding: 30px 0;
+  }
+  
+  .demo-section {
+    gap: 30px;
+    padding: 40px 15px;
+  }
+  
+  .demo-title {
+    font-size: 28px;
+  }
+  
+  .audio-title {
+    font-size: 32px;
+  }
+  
+  .works-title {
+    font-size: 32px;
+  }
+  
+  .downloader-title {
+    font-size: 32px;
+  }
+}
+
+/* Small laptop screens (1024px and below) */
+@media (max-width: 1024px) {
+  .hero {
+    height: auto;
+    min-height: 80vh;
+    padding: 60px 20px;
+  }
+  
+  .hero-title {
+    font-size: 36px;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    max-width: 600px;
+  }
+  
+  .server-stats {
+    font-size: 20px;
+    padding: 25px 0;
+  }
+  
+  .demo-section {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+    padding: 50px 20px;
+    gap: 30px;
+  }
+  
+  .demo-videos {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .audio-section {
+    height: auto;
+    padding: 50px 20px;
+  }
+  
+  .audio-demo {
+    flex-direction: column;
+    gap: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .how-it-works {
+    height: auto;
+    padding: 50px 20px;
+  }
+  
+  .media-downloader {
+    height: auto;
+    padding: 50px 20px;
+  }
+  
+  .final-cta {
+    height: auto;
+    min-height: 50vh;
+    padding: 60px 20px;
+  }
+}
+
+/* Specific fixes for content spacing */
+@media (max-width: 1440px) {
+  .audio-input-container {
+    padding-right: 0;
+    margin-bottom: 40px;
+  }
+  
+  .audio-input-container-bpm {
+    margin-bottom: 30px;
+  }
+  
+  .works-description {
+    margin-bottom: 40px;
+  }
+  
+  .downloader-description {
+    margin-bottom: 40px;
+  }
+  
+  /* Reduce video container sizes */
+  .video-placeholder {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  /* Make waveform responsive */
+  .waveform {
+    max-width: 400px;
+    height: 150px;
+  }
+}
+
+/* Ultra-wide prevention */
+@media (min-width: 1441px) {
+  .demo-section,
+  .audio-section,
+  .how-it-works,
+  .media-downloader {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Fix for very short laptop screens (like 1366x768) */
+@media (max-height: 800px) and (min-width: 1025px) {
+  .hero {
+    height: auto;
+    min-height: 70vh;
+    padding: 40px 20px;
+  }
+  
+  .demo-section,
+  .audio-section,
+  .how-it-works,
+  .media-downloader {
+    height: auto;
+    min-height: auto;
+    padding: 40px 20px;
+  }
+  
+  .final-cta {
+    height: auto;
+    min-height: 40vh;
+    padding: 40px 20px;
+  }
+}

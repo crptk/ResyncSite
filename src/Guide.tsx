@@ -138,46 +138,14 @@ const BotGuide: React.FC = () => {
         accent="pink"
         blurb="Additional tools and utilities."
         commands={[
-          { name: "/downloadvideo", desc: "Download a video from a given link in full quality (YouTube, Instagram, TikTok, etc.)." },
-          { name: "/downloadaudio", desc: "Download an audio track from a given link (Spotify, SoundCloud, YouTube, etc.)." },
+          { name: "/downloadvideo", desc: "Download a video from a given link in full quality (Instagram, TikTok, etc.)." },
+          { name: "/downloadaudio", desc: "Download an audio track from a given link (SoundCloud for example)." },
           { name: "/loopaudio", desc: "Upload an audio file, set start/end, and generate a clean loop for editing inspiration." },
           { name: "/guide", desc: "Quick tips for manual/auto resync techniques and sync methods." },
           { name: "/limits", desc: "Check your daily usage, see remaining limits, and view premium status." },
           { name: "/vote", desc: "Upvote ResyncBot to reset daily limits and support the bot." }
         ]}
       />
-
-      {/* Section 5 */}
-      <Section
-        id="limits"
-        title="Limits & Premium"
-        accent="green"
-        blurb="Free tier vs Premium at a glance."
-        commands={[]}
-        extra={
-          <div className="limits-grid">
-            <div className="guide-card">
-              <h4 className="guide-subtitle">Free Tier Limits</h4>
-              <ul className="guide-list">
-                <li>4 auto resyncs per day</li>
-                <li>7 random resyncs per day</li>
-                <li>Unlimited manual resyncs</li>
-              </ul>
-            </div>
-            <div className="guide-card">
-              <h4 className="guide-subtitle">Premium Benefits</h4>
-              <ul className="guide-list">
-                <li>Unlimited auto & random resyncs</li>
-                <li>Priority processing queue</li>
-                <li>$3/month, $15/year, or $25 lifetime (LIMITED)</li>
-                <li>No watermark</li>
-                <li>Supports development ❤️</li>
-              </ul>
-            </div>
-          </div>
-        }
-      />
-
       <footer className="guide-footer">
         <a
           className="btn-primary"

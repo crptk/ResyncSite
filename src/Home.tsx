@@ -34,7 +34,7 @@ function Home() {
 
         pollInterval = setInterval(async () => {
             try {
-                const res = await fetch(`http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/progress/status?session_id=${sessionId}`);
+                const res = await fetch(`https://dj7q35sqbbywm.cloudfront.net/progress/status?session_id=${sessionId}`);
                 const data = await res.json();
                 if (container && data?.message && container.classList.contains("generating")) {
                     container.innerHTML = `<span class="generating-text purple">${data.message}</span>`;
@@ -45,7 +45,7 @@ function Home() {
         }, 2000);
 
         try {
-            const response = await fetch('http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/random-resync', {
+            const response = await fetch('https://dj7q35sqbbywm.cloudfront.net/demo/random-resync', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -93,7 +93,7 @@ function Home() {
         let pollInterval: number;
         pollInterval = setInterval(async () => {
             try {
-                const res = await fetch(`http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/progress/status?session_id=${sessionId}`);
+                const res = await fetch(`https://dj7q35sqbbywm.cloudfront.net/progress/status?session_id=${sessionId}`);
                 const data = await res.json();
                 if (container && data?.message) {
                     container.innerHTML = `<span class="generating-text green">${data.message}</span>`;
@@ -117,7 +117,7 @@ function Home() {
             formData.append("audio_url", audioUrlResync.trim());
             formData.append("session_id", sessionId);
 
-            const response = await fetch('http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/custom-resync', {
+            const response = await fetch('https://dj7q35sqbbywm.cloudfront.net/demo/custom-resync', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -164,7 +164,7 @@ function Home() {
         setDetectedBpm(null);
 
         try {
-            const response = await fetch('http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/analyze-bpm', {
+            const response = await fetch('https://dj7q35sqbbywm.cloudfront.net/demo/analyze-bpm', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -208,7 +208,7 @@ function Home() {
         }
 
         try {
-            const res = await fetch('http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/preview-media', {
+            const res = await fetch('https://dj7q35sqbbywm.cloudfront.net/demo/preview-media', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url: mediaUrl, kind: "auto" })
@@ -316,7 +316,7 @@ function Home() {
         // For live server count update
         const fetchServerStats = async () => {
             try {
-                const res = await fetch("http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/metrics/servers");
+                const res = await fetch("https://dj7q35sqbbywm.cloudfront.net/metrics/servers");
                 const json = await res.json();
                 if (typeof json?.total_servers === "number") {
                     setServerCount(json.total_servers);
@@ -333,7 +333,7 @@ function Home() {
     useEffect(() => {
         const fetchServerStats = async () => {
             try {
-                const res = await fetch("http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/metrics/servers");
+                const res = await fetch("https://dj7q35sqbbywm.cloudfront.net/metrics/servers");
                 const json = await res.json();
                 if (typeof json?.total_servers === "number") {
                     setServerCount(json.total_servers);
@@ -455,7 +455,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/video_purple"
+                                    src="https://dj7q35sqbbywm.cloudfront.net/demo/video_purple"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >
@@ -505,7 +505,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="http://resyncbot-production.eba-pm3mk5hp.us-east-1.elasticbeanstalk.com/demo/video_green"
+                                    src="https://dj7q35sqbbywm.cloudfront.net/demo/video_green"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >

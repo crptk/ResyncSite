@@ -42,7 +42,7 @@ function App() {
           <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
           <Link to="/guide" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Bot Guide</Link>
           <a href="https://github.com/crptk/Resyncbot.git" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>View Source</a>
-          <a href="https://discord.gg/e3n94d7WMj" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Join ResyncHub</a>
+          <a href="https://discord.gg/EJnQUm8h" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Join ResyncHub</a>
           <a href="https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Invite ResyncBot</a>
         </div>
       </header>

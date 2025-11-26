@@ -14,7 +14,32 @@ function Home() {
     const [, setStuck] = useState(false);
     const [lightsVisible, setLightsVisible] = useState(false);
     const discord_invite = "https://discord.com/oauth2/authorize?client_id=1372406004515475577&permissions=2147600384&scope=bot+applications.commands"
+    const [audioError, setAudioError] = useState<string | null>(null);
 
+
+    const detectPlatform = (url: string): "soundcloud" | "mp3" | "unsupported" => {
+        const lower = url.toLowerCase().trim();
+
+        // Allowed
+        if (lower.includes("soundcloud.com")) return "soundcloud";
+        if (lower.endsWith(".mp3")) return "mp3";
+
+        // Disallowed
+        if (
+            lower.includes("youtube.com") ||
+            lower.includes("youtu.be") ||
+            lower.includes("spotify.com") ||
+            lower.includes("tiktok.com") ||
+            lower.includes("instagram.com") ||
+            lower.includes("fb.com") ||
+            lower.includes("facebook.com")
+        ) {
+            return "unsupported";
+        }
+
+        // Default: treat unknown URLs as unsupported
+        return "unsupported";
+    };
 
     const handleRandomResync = async () => {
         if (isGenerating1) return;
@@ -86,6 +111,13 @@ function Home() {
 
     const handleCustomResync = async () => {
         if (isGenerating2 || !audioUrlResync.trim()) return;
+
+        const platform = detectPlatform(audioUrlResync);
+        if (platform === "unsupported") {
+            setAudioError("This audio source is not supported. Please use SoundCloud or a direct MP3 link.");
+            return;
+        }
+        setAudioError(null);
 
         setIsGenerating2(true);
 
@@ -479,7 +511,10 @@ function Home() {
             <div className="audio-section fade-in">
                 <h2 className="audio-title">Choose your own audio!</h2>
                 <p className="audio-description">
-                    ResyncBot allows you to choose your own audio to resync with! This includes audios from YouTube, Spotify, SoundCloud and more. Try it below by inputting your favourite song.
+                    ResyncBot allows you to choose your own audio to resync with!
+                    <br/>Enter a SoundCloud link or a direct MP3 link below to generate your resynced video.
+
+
                 </p>
 
                 <div className="audio-input-container">
@@ -497,6 +532,11 @@ function Home() {
                     >
                         {isGenerating2 ? 'Generating...' : 'Generate Resync'}
                     </button>
+                    {audioError && (
+                        <p style={{ color: "#ff6b6b", marginTop: "8px", fontSize: "14px" }}>
+                            {audioError}
+                        </p>
+                    )}
                 </div>
 
                 <div className="audio-demo">
@@ -572,14 +612,14 @@ function Home() {
             <div className="media-downloader fade-in">
                 <h2 className="downloader-title">Built-in Media Downloader</h2>
                 <p className="downloader-description">
-                    Paste a link and preview what ResyncBot can fetch. Choose Audio or Video (Youtube and Spotify not supported). <br />
-                    (Downloads are disabled on this page — preview only. To download audio or video, invite ResyncBot to your server and use /downloadvideo or /downloadaudio.)
+                    Paste a link and preview what ResyncBot can fetch. <br/>Choose Audio or Video (Youtube and Spotify not supported).<br/>
+(Downloads are disabled on this page — preview only. To download audio or video, invite ResyncBot to your server and use /downloadvideo or /downloadaudio.)<br />
                 </p>
 
                 <div className="media-input-row">
                     <input
                         className="audio-input-media"
-                        placeholder="Paste media URL (TikTok, I nstagram, SoundCloud, etc.)"
+                        placeholder="Paste soundcloud URL"
                         value={mediaUrl}
                         onChange={(e) => setMediaUrl(e.target.value)}
                     />

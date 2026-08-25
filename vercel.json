@@ -5,6 +5,14 @@
       "destination": "https://dj7q35sqbbywm.cloudfront.net/metrics/:path*"
     },
     {
+      "source": "/progress/:path*",
+      "destination": "https://dj7q35sqbbywm.cloudfront.net/progress/:path*"
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "https://dj7q35sqbbywm.cloudfront.net/demo/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }

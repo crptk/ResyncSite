@@ -7,6 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/metrics': 'https://dj7q35sqbbywm.cloudfront.net',
+      '/progress': 'https://dj7q35sqbbywm.cloudfront.net',
+      '/demo': 'https://dj7q35sqbbywm.cloudfront.net',
     },
   },
 })

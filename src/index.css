@@ -194,9 +194,38 @@ html, body {
   font-weight: bold;
 }
 
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .nav-buttons {
   display: flex;
   gap: 16px;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: #60a5fa;
+  transition: transform .25s ease, opacity .25s ease;
 }
 
 .nav-link {
@@ -1130,105 +1159,6 @@ html, body {
   text-decoration: none;
 }
 
-@media (max-width: 728px) {
-  .hero-lights,
-  .background-lights,
-  .section-lights,
-  .blue-light-left,
-  .blue-light-right,
-  .light-purple,
-  .light-purple2,
-  .light-green,
-  .light-green2,
-  .light-yellow,
-  .light-yellow2,
-  .light-pink,
-  .light-pink2,
-  .rainbow-light1,
-  .rainbow-light2,
-  .white-light1,
-  .white-light2 {
-    display: none !important;
-  }
-  .profile-circle {
-    height: 40%;
-    width: 40%;
-  }
-  .hero {
-    margin-top: 100px;
-    height: auto;
-  }
-  .hero-title {
-    font-size: 35px;
-  }
-  .hero-buttons .btn-primary, .hero-buttons .btn-secondary {
-    font-size: 15px;
-    text-decoration: none;
-  }
-  .server-stats {
-    font-size: 20px;
-  }
-  .audio-title { font-size: 30px;}
-  .audio-description { font-size: 15px; }
-  .audio-input-container {
-    padding-right: 0px;
-  }
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .demo-section {
-    flex-direction: column;
-    text-align: center;
-    min-height: 100vh;
-    margin-bottom: 100px;
-  }
-  .video-container {
-    width: 400px;
-  }
-  .audio-section {
-    min-height: 100vh;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    margin-bottom: 150px;
-  }
-  .audio-demo {
-    flex-direction: column;
-  }
-  .video-container {
-    min-width: 400px;
-  }
-  .how-it-works {
-    min-height: 80vh;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    margin-bottom: 100px;
-  }
-  .media-downloader {
-    height: 50vh;
-  }
-  .final-cta {
-    height: 10vh;
-  }
-  .nav-buttons {
-    z-index: 999;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-}
-
-@media (max-width: 400px) {
-  .demo-section {
-    margin-bottom: 300px;
-  }
-  .audio-section {
-    margin-bottom: 500px;
-  }
-  .how-it-works {
-    margin-bottom: 200px;
-  }
-}
-
 /* Laptop screen fixes (1024px - 1440px) */
 @media (max-width: 1440px) and (min-width: 1025px) {
   .demo-section {
@@ -1429,5 +1359,218 @@ html, body {
     height: auto;
     min-height: 40vh;
     padding: 40px 20px;
+  }
+}
+
+@media (max-width: 728px) {
+  .hero-lights,
+  .background-lights,
+  .section-lights,
+  .blue-light-left,
+  .blue-light-right,
+  .light-purple,
+  .light-purple2,
+  .light-green,
+  .light-green2,
+  .light-yellow,
+  .light-yellow2,
+  .light-pink,
+  .light-pink2,
+  .rainbow-light1,
+  .rainbow-light2,
+  .white-light1,
+  .white-light2 {
+    display: none !important;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+
+  .header.is-open {
+    background: rgba(8, 10, 14, .95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .header-bar {
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .header.is-open .nav-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .header.is-open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header.is-open .nav-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-buttons {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding-bottom: 8px;
+  }
+
+  .nav-buttons.is-open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 12px 4px;
+    font-size: 16px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .hero {
+    height: auto;
+    margin-top: 90px;
+    padding: 40px 20px;
+  }
+
+  .profile-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .server-stats {
+    font-size: 18px;
+    padding: 24px 0;
+  }
+
+  .demo-section,
+  .audio-section,
+  .how-it-works,
+  .media-downloader {
+    height: auto;
+    min-height: 0;
+    margin-bottom: 0;
+    padding: 48px 16px;
+  }
+
+  .demo-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 28px;
+  }
+
+  .demo-title,
+  .audio-title,
+  .works-title,
+  .downloader-title {
+    font-size: 28px;
+  }
+
+  .demo-videos,
+  .audio-demo {
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .video-container,
+  .audio-video-container {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .video-placeholder {
+    max-width: 100%;
+  }
+
+  .audio-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 0;
+    margin-bottom: 40px;
+  }
+
+  .audio-input,
+  .audio-input-bpm {
+    max-width: 100%;
+  }
+
+  .btn-generate,
+  .btn-generate-bpm {
+    width: 100%;
+    max-width: 420px;
+    margin-left: 0;
+  }
+
+  .final-cta {
+    height: auto;
+    min-height: 0;
+    padding: 60px 20px;
+  }
+
+  .guide {
+    margin-top: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 27px;
+  }
+
+  .demo-title,
+  .audio-title,
+  .works-title,
+  .downloader-title,
+  .cta-title {
+    font-size: 24px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .server-stats {
+    font-size: 16px;
+  }
+
+  .btn-invite-final {
+    padding: 14px 18px;
+    font-size: 15px;
   }
 }

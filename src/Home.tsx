@@ -278,7 +278,6 @@ function Home() {
                     display: block;
                     width: 100%;
                     max-width: 800px;
-                    min-width: 600px;
                     min-height: 48px;
                     height: 48px;
                     margin: 0 auto;

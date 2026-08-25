@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/metrics/:path*",
+      "destination": "https://dj7q35sqbbywm.cloudfront.net/metrics/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }

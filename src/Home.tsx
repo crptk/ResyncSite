@@ -348,7 +348,7 @@ function Home() {
         // For live server count update
         const fetchServerStats = async () => {
             try {
-                const res = await fetch("https://dj7q35sqbbywm.cloudfront.net/metrics/servers");
+                const res = await fetch("/metrics/servers");
                 const json = await res.json();
                 if (typeof json?.total_servers === "number") {
                     setServerCount(json.total_servers);
@@ -365,7 +365,7 @@ function Home() {
     useEffect(() => {
         const fetchServerStats = async () => {
             try {
-                const res = await fetch("https://dj7q35sqbbywm.cloudfront.net/metrics/servers");
+                const res = await fetch("/metrics/servers");
                 const json = await res.json();
                 if (typeof json?.total_servers === "number") {
                     setServerCount(json.total_servers);

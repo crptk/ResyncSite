@@ -486,7 +486,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="https://dj7q35sqbbywm.cloudfront.net/demo/video_purple"
+                                    src="https://178-105-35-252.sslip.io/demo/video_purple"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >
@@ -544,7 +544,7 @@ function Home() {
                         <div className="video-placeholder">
                             <div className="video-content has-video">
                                 <video
-                                    src="https://dj7q35sqbbywm.cloudfront.net/demo/video_green"
+                                    src="https://178-105-35-252.sslip.io/demo/video_green"
                                     controls
                                     onContextMenu={(e) => e.preventDefault()}
                                 >

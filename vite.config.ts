@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/metrics': 'https://dj7q35sqbbywm.cloudfront.net',
-      '/progress': 'https://dj7q35sqbbywm.cloudfront.net',
-      '/demo': 'https://dj7q35sqbbywm.cloudfront.net',
+      '/metrics': 'https://178-105-35-252.sslip.io',
+      '/progress': 'https://178-105-35-252.sslip.io',
+      '/demo': 'https://178-105-35-252.sslip.io',
     },
   },
 })

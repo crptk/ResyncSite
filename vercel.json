@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/metrics/:path*",
-      "destination": "https://dj7q35sqbbywm.cloudfront.net/metrics/:path*"
+      "destination": "https://178-105-35-252.sslip.io/metrics/:path*"
     },
     {
       "source": "/progress/:path*",
-      "destination": "https://dj7q35sqbbywm.cloudfront.net/progress/:path*"
+      "destination": "https://178-105-35-252.sslip.io/progress/:path*"
     },
     {
       "source": "/demo/:path*",
-      "destination": "https://dj7q35sqbbywm.cloudfront.net/demo/:path*"
+      "destination": "https://178-105-35-252.sslip.io/demo/:path*"
     },
     {
       "source": "/(.*)",
